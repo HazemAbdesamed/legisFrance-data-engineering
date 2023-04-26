@@ -9,6 +9,9 @@ The approach followed is to get all the links of (version initiale), navigating 
 
 The data collected is stored in a [csv file](https://github.com/HazemAbdesamed/legisFrance-data-engineering/blob/main/csv_files/legal_texts.csv)
 
+[!alt text](https://user-images.githubusercontent.com/48518599/234459110-cfb9c71f-aca8-4dca-8dfc-6e9a4349cf6c.png "csv file")
+
+
 The code used to scrape data can be found in [scrape.py file](https://github.com/HazemAbdesamed/legisFrance-data-engineering/blob/main/airflow/dags/functions/scrape.py)
 
 ## Step 2 : Data Modelling and ETL Pipeline
@@ -65,9 +68,19 @@ Assuming that the articles are generaly retrieved with their respective legal te
 
 Assuming that the fields that are used the most are **nature** and **date**, two indexes are created for these fields.
 
+Also, in this part we load the data into the mongodb db after performing some transformations to respect the structure of the mongodb collection.
+
+The code used to load data can be found in [load_to_db.py file](https://github.com/HazemAbdesamed/legisFrance-data-engineering/blob/main/airflow/dags/functions/load_to_db.py)
+![alt text](https://user-images.githubusercontent.com/48518599/234460528-74538ff4-f103-4769-ac84-403afbfd5385.png "example")
+![image](https://user-images.githubusercontent.com/48518599/234460609-734ed455-4ca7-4c23-9738-2de69c978182.png "number of documents")
+
+
 ### ETL Pipeline
+In this step we implement the data pipeline.
 
-In this part we load the data into the mongodb db after performing some transformations to respect the structure of the mongodb collection.
+The code implemented to orchestrate the data pipeline can be found in [this file](https://github.com/HazemAbdesamed/legisFrance-data-engineering/blob/main/airflow/dags/main.py)
 
-The code used to implement this step can be found in [load_to_db.py file](https://github.com/HazemAbdesamed/legisFrance-data-engineering/blob/main/airflow/dags/functions/load_to_db.py)
+![alt text](https://user-images.githubusercontent.com/48518599/234460700-c1edfe17-a8bd-49e8-bdb8-fac19ac1d905.png ""the pipeline run successfully)
+
+
 
