@@ -59,7 +59,7 @@ The schema :
            }
         ]
     }
-<pre><code>
+</pre></code>
 
 Assuming that the articles are generaly retrieved with their respective legal texts, we have put the legal text and its articles in the same collection.
 
