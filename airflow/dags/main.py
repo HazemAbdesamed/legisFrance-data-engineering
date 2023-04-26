@@ -4,6 +4,7 @@ from airflow.operators.python_operator import PythonOperator
 
 from functions.scrape import scrape
 from functions.load_to_db import load_data_to_db
+from functions.visualization import create_visualizations
 
 
 
@@ -17,5 +18,6 @@ with DAG('legifrance-data-eng', default_args = default_args, schedule_interval='
 
     t_fetch_data = PythonOperator(task_id="fetch-data", python_callable=scrape)
     t_load_data = PythonOperator(task_id="load-data", python_callable=load_data_to_db)
+    t_create_visualizations = PythonOperator(task_id="create_visualizations", python_callable=create_visualizations)
 
-    t_fetch_data >> t_load_data    
+    t_fetch_data >> t_load_data >> t_create_visualizations

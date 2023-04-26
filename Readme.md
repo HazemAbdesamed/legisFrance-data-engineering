@@ -83,4 +83,14 @@ The code implemented to orchestrate the data pipeline can be found in [this file
 ![alt text](https://user-images.githubusercontent.com/48518599/234460700-c1edfe17-a8bd-49e8-bdb8-fac19ac1d905.png "the pipeline run successfully")
 
 
+## STEP 3 : Data Visualization
+
+In this step we create visualizations related to the legal text.
+
+The first two visualizations represent respectively the number of legal texts by nature by day and the cumulative count of legal texts by nature over time.
+
+The visualizations below represent the wordcloud for article texts and title texts.
+
+
+
 

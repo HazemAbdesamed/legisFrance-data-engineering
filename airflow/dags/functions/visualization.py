@@ -74,4 +74,6 @@ def plot_wordcloud():
     # Display the plot
     plt.savefig('/usr/local/airflow/visualizations/wordcloud.png', bbox_inches='tight')
 
-plot_wordcloud()
+def create_visualizations():
+    plot_nature_over_time()
+    plot_wordcloud()    
