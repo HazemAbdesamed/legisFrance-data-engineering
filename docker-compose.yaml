@@ -52,6 +52,7 @@ services:
             - ./airflow/dags:/usr/local/airflow/dags
             - ./mongodb/db_data:/usr/local/airflow/db_data_airflow/
             - ./csv_files:/csv_files
+            - ./airflow/visualizations/:/usr/local/airflow/visualizations/
         ports:
             - "8080:8080"
         networks:
