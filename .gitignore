@@ -1,1 +1,2 @@
 mongodb/db_data
+airflow/dags/__pycache__
