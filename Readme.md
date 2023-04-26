@@ -64,7 +64,7 @@ The schema :
     }
 </pre></code>
 
-Assuming that the articles are generaly retrieved with their respective legal texts, we have put the legal text and its articles in the same collection.
+Assuming that the articles are generally queried with their respective legal texts, the legal text and its articles are put in the same collection.
 
 Assuming that the fields that are used the most are **nature** and **date**, two indexes are created for these fields.
 
@@ -87,10 +87,25 @@ The code implemented to orchestrate the data pipeline can be found in [this file
 
 In this step we create visualizations related to the legal text.
 
-The first two visualizations represent respectively the number of legal texts by nature by day and the cumulative count of legal texts by nature over time.
+The first [two visualizations](https://github.com/HazemAbdesamed/legisFrance-data-engineering/blob/main/airflow/visualizations/legal_text_by_nature_over_time.png) represent respectively the number of legal texts by nature by day and the cumulative count of legal texts by nature over time.
 
-The visualizations below represent the wordcloud for article texts and title texts.
 
+![alt text](https://user-images.githubusercontent.com/48518599/234665158-156492de-a3f9-4063-8dca-48ef857e074b.png "counts by nature over time and cumulative counts by nature over time")
+
+
+The [other visualizations](https://github.com/HazemAbdesamed/legisFrance-data-engineering/blob/main/airflow/visualizations/wordcloud.png) represent the wordcloud for content of the article texts and title texts.
+
+We have created a stopwords list that can be improved as needed for efficient words retrieving.
+
+![alt text](https://user-images.githubusercontent.com/48518599/234665698-627a2d46-fb1c-449c-a527-795083876045.png "wordcloud for titles and content of text ")
+
+The visualisations are stored in [this folder](https://github.com/HazemAbdesamed/legisFrance-data-engineering/tree/main/airflow/visualizations) along with the stopwords list. 
+
+These visuals can be used later for analysis ( Reporting or Dashboard ).
+
+The DAG after adding the data visualization task : 
+
+![alt text](https://user-images.githubusercontent.com/48518599/234666740-4df39f95-50f7-43be-ab63-5be59f44f2ac.png "the dag with data visualization task")
 
 
 
