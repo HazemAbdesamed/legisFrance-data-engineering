@@ -21,14 +21,14 @@ def plot_nature_over_time():
 
     fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(16, 12))
 
-    sns.lineplot(x='date', y='NOR', hue='nature', data=grouped_data, markers=True, ax=axs[0])
+    sns.lineplot(x='date', y='NOR', hue='nature', data=grouped_data, marker='o', ax=axs[0])
     axs[0].set_title('Number of Legal Texts by Nature per Day')
     axs[0].set_xticks(df['date'])
     axs[0].tick_params(axis='x', rotation=90, labelsize=9)
     axs[0].set_xlabel('Date')
     axs[0].set_ylabel('Count')
 
-    sns.lineplot(x='date', y='cumulative_count', hue='nature', data=grouped_data, markers=True, ax=axs[1])
+    sns.lineplot(x='date', y='cumulative_count', hue='nature', data=grouped_data, marker='o', ax=axs[1])
     axs[1].set_title('Cumulative Number of Legal Texts by Nature over time')
     axs[1].set_xticks(df['date'])
     axs[1].tick_params(axis='x', rotation=90, labelsize=9)
@@ -43,7 +43,7 @@ def plot_nature_over_time():
 
 
 
-def plot_wordclouds():
+def plot_wordcloud():
     
     # get the stop words list and put it in a set    
     with open("/usr/local/airflow/visualizations/stopwords.txt", "r") as f:
@@ -54,8 +54,6 @@ def plot_wordclouds():
     for article_list in df['articles']:
         for article in article_list :
             all_articles_texts += article['article_text'] + ' '
-
-
 
 
     # Create a figure with two subplots
@@ -75,4 +73,5 @@ def plot_wordclouds():
 
     # Display the plot
     plt.savefig('/usr/local/airflow/visualizations/wordcloud.png', bbox_inches='tight')
-plot_wordclouds()    
+
+plot_wordcloud()
