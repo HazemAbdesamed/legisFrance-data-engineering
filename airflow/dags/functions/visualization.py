@@ -111,8 +111,5 @@ def plot_avg_articles():
 def create_visualizations():
     plot_nature_over_time()
     plot_wordcloud()  
-    client.close()
+    plot_avg_articles()
 
-
-plot_avg_articles()    
-client.close()
