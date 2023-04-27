@@ -19,7 +19,8 @@ def plot_nature_over_time():
     sns.set_style('darkgrid')
 
     fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(16, 12))
-
+    
+    #the first graph, number of legal text by nature over time
     sns.lineplot(x='date', y='NOR', hue='nature', data=grouped_data, marker='o', ax=axs[0])
     axs[0].set_title('Number of Legal Texts by Nature per Day')
     axs[0].set_xticks(df['date'])
@@ -27,6 +28,7 @@ def plot_nature_over_time():
     axs[0].set_xlabel('Date')
     axs[0].set_ylabel('Count')
 
+    #the second graph, cumulative number of legal text by nature over time
     sns.lineplot(x='date', y='cumulative_count', hue='nature', data=grouped_data, marker='o', ax=axs[1])
     axs[1].set_title('Cumulative Number of Legal Texts by Nature over time')
     axs[1].set_xticks(df['date'])
@@ -37,7 +39,7 @@ def plot_nature_over_time():
     # Adjust spacing between subplots
     fig.subplots_adjust(hspace=0.5)
 
-    # Display plot
+    # Save the visualization
     plt.savefig('/usr/local/airflow/visualizations/legal_text_by_nature_over_time.png', bbox_inches='tight')
 
 
@@ -48,7 +50,10 @@ def plot_wordcloud():
     with open("/usr/local/airflow/visualizations/stopwords.txt", "r") as f:
         stopwords = {line.strip() for line in f}
     
+    # Get titles texts 
     titles_text = ' '.join(list(df['title']))
+    
+    # Get articles texts
     all_articles_texts = ''
     for article_list in df['articles']:
         for article in article_list :
@@ -58,44 +63,24 @@ def plot_wordcloud():
     # Create a figure with two subplots
     fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(16, 8))
 
-    # Generate and display the title word cloud
+    # Generate title word cloud
     title_wordcloud = WordCloud(stopwords=stopwords, background_color='white', width=800, height=400).generate(titles_text)
     axs[0].imshow(title_wordcloud, interpolation='bilinear')
     axs[0].set_title('Title Word Cloud', fontsize=16)
     axs[0].axis('off')
 
-    # Generate and display the article word cloud
+    # Generate the article word cloud
     article_wordcloud = WordCloud(stopwords=stopwords, background_color='white', width=800, height=400).generate(all_articles_texts)
     axs[1].imshow(article_wordcloud, interpolation='bilinear')
     axs[1].set_title('Article Word Cloud', fontsize=16)
     axs[1].axis('off')
 
-    # Display the plot
+    # Save the visualization
     plt.savefig('/usr/local/airflow/visualizations/wordcloud.png', bbox_inches='tight')
 
 def plot_avg_articles():
-    # aggregate data to compute the average number of articles by nature
-    # pipeline = [
-    #     {
-    #         "$unwind": "$articles"
-    #     },
-    #     {
-    #         "$group": {
-    #             "_id": "$nature",
-    #             "avg_articles": {"$avg": {"$cond": {
-    #                     if: { "$isArray": "$articles" },
-    #                     then: { "$size": "$articles" },
-    #                     else: 0
-    #                 }}}
-    #         }
-    #     },
-    #     {
-    #         "$sort": {"avg_articles": -1}
-    #     }
-    # ]
 
-    # results = list(db.legalText.aggregate(pipeline))
-
+    # Calculate the average number of articles by nature
     avg_by_nature = df.groupby('nature')['articles'].apply(lambda x: sum(len(articles) for articles in x) / len(x)).reset_index(name='avg_num_articles')
 
     
@@ -105,6 +90,7 @@ def plot_avg_articles():
     plt.title('Average Number of Articles by Nature')
     plt.xlabel('Nature of Legal Text')
     plt.ylabel('Average Number of Articles')
+    # Save the visualization
     plt.savefig('/usr/local/airflow/visualizations/avg_articles.png', bbox_inches='tight')
 
 
