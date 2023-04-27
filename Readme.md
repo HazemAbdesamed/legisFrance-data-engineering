@@ -73,10 +73,6 @@ Also, in this part we load the data into the mongodb db after performing some tr
 The code used to load data can be found in [load_to_db.py file](https://github.com/HazemAbdesamed/legisFrance-data-engineering/blob/main/airflow/dags/functions/load_to_db.py).
 ![alt text](https://user-images.githubusercontent.com/48518599/234460528-74538ff4-f103-4769-ac84-403afbfd5385.png "example")
 ![image](https://user-images.githubusercontent.com/48518599/234460609-734ed455-4ca7-4c23-9738-2de69c978182.png "number of documents")
-![alt text](https://user-images.githubusercontent.com/48518599/234668931-65d758e4-0588-4f01-b183-2dda23f3f0c6.png "NOR, title and nature fields")
-![alt text](https://user-images.githubusercontent.com/48518599/234669462-39da5e03-4da7-4052-b7f5-04b12dca3818.png "distinct nature values ")
-
-
 
 
 ### ETL Pipeline
