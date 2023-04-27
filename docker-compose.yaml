@@ -18,6 +18,7 @@ services:
       environment:
         MONGO_INITDB_ROOT_USERNAME: root
         MONGO_INITDB_ROOT_PASSWORD: root
+        MONGO_INITDB_DATABASE: legisFrance
       ports:
         - 27017:27017
       volumes:
@@ -43,10 +44,10 @@ services:
             - EXECUTOR=Local
             - SELENIUM_HOST=chrome
             - SELENIUM_PORT=4444
-        logging:
-            options:
-                max-size: 10m
-                max-file: "3"
+        # logging:
+        #     options:
+        #         max-size: 10m
+        #         max-file: "3"
         volumes:
             - ./airflow/requirements.txt:/requirements.txt
             - ./airflow/dags:/usr/local/airflow/dags
@@ -64,9 +65,12 @@ services:
         hostname: chrome
         ports:
             - "4444:4444"
-        privileged: true
+        environment:
+            SE_VNC_NO_PASSWORD: 1
+            JAVA_OPTS: -Dwebdriver.chrome.whitelistedIps=
         networks:
             - my-network
+
 networks:
   my-network:
     driver: bridge             
