@@ -113,3 +113,14 @@ The DAG after adding the data visualization task :
 
 
 
+## Requirements : 
+docker desktop v4.15.0
+docker v20.10.21
+docker-compose v2.13.0
+
+## Usage :
+* Download the folder of the project.
+* Navigate to the folder on your marchine.
+* execute : <code> docker-compose up --build -d </code>
+
+
