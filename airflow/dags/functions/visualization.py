@@ -10,7 +10,6 @@ client = MongoClient("mongodb://root:root@mongodb:27017/")
 db = client["legisFrance"]
 collection = db["legalText"]
 df = pd.DataFrame(list(collection.find())).drop("_id", axis=1)
-client.close()
 
 # a function to plot the number of legal text by their natures over time
 def plot_nature_over_time():
@@ -74,6 +73,46 @@ def plot_wordcloud():
     # Display the plot
     plt.savefig('/usr/local/airflow/visualizations/wordcloud.png', bbox_inches='tight')
 
+def plot_avg_articles():
+    # aggregate data to compute the average number of articles by nature
+    # pipeline = [
+    #     {
+    #         "$unwind": "$articles"
+    #     },
+    #     {
+    #         "$group": {
+    #             "_id": "$nature",
+    #             "avg_articles": {"$avg": {"$cond": {
+    #                     if: { "$isArray": "$articles" },
+    #                     then: { "$size": "$articles" },
+    #                     else: 0
+    #                 }}}
+    #         }
+    #     },
+    #     {
+    #         "$sort": {"avg_articles": -1}
+    #     }
+    # ]
+
+    # results = list(db.legalText.aggregate(pipeline))
+
+    avg_by_nature = df.groupby('nature')['articles'].apply(lambda x: sum(len(articles) for articles in x) / len(x)).reset_index(name='avg_num_articles')
+
+    
+    # plot the average number of articles by nature using a bar chart
+    sns.set_style('darkgrid')
+    sns.barplot(x=avg_by_nature['nature'], y=avg_by_nature['avg_num_articles'])
+    plt.title('Average Number of Articles by Nature')
+    plt.xlabel('Nature of Legal Text')
+    plt.ylabel('Average Number of Articles')
+    plt.savefig('/usr/local/airflow/visualizations/avg_articles.png', bbox_inches='tight')
+
+
 def create_visualizations():
     plot_nature_over_time()
-    plot_wordcloud()    
+    plot_wordcloud()  
+    client.close()
+
+
+plot_avg_articles()    
+client.close()

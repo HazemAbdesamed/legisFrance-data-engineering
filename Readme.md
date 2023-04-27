@@ -103,6 +103,9 @@ We have created a stopwords list that can be improved as needed for efficient wo
 
 ![alt text](https://user-images.githubusercontent.com/48518599/234665698-627a2d46-fb1c-449c-a527-795083876045.png "wordcloud for titles and content of text ")
 
+Another visualization shows the average number of articles by the nature of the legal text
+![image](https://user-images.githubusercontent.com/48518599/234834929-b4e63337-fadc-4897-b662-82821f62d516.png "average number of articles by nature")
+
 The visualisations are stored in [this folder](https://github.com/HazemAbdesamed/legisFrance-data-engineering/tree/main/airflow/visualizations) along with the stopwords list. 
 
 These visuals can be used later for analysis ( Reporting or Dashboard ).
