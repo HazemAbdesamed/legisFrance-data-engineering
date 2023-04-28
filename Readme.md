@@ -126,7 +126,7 @@ docker-compose v2.13.0
 * Download the folder of the project.
 * Navigate to the folder on your marchine.
 * execute : <code> docker-compose up --build -d </code>, it will take some time for the first time as it will create the images and install all the dependecies.
-* To run the data pipeline, navigate to localhost:8080, turn on the DAG and trigger it.
+* The datapipeline is scheduled to be executed every week. However, to run the data pipeline manually, navigate to localhost:8080, turn on the DAG and trigger it.
 
 ![image](https://user-images.githubusercontent.com/48518599/234822563-e89e35c0-26e4-4438-b08b-dd0d69f65e41.png "running a data pipeline")
 

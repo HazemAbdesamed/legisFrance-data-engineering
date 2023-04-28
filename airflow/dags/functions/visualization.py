@@ -86,7 +86,7 @@ def plot_avg_articles():
     
     # plot the average number of articles by nature using a bar chart
     sns.set_style('darkgrid')
-    sns.barplot(x=avg_by_nature['nature'], y=avg_by_nature['avg_num_articles'])
+    sns.barplot(x=avg_by_nature['nature'], y=avg_by_nature['avg_num_articles'], marker=True)
     plt.title('Average Number of Articles by Nature')
     plt.xlabel('Nature of Legal Text')
     plt.ylabel('Average Number of Articles')
