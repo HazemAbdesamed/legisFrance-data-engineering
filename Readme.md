@@ -119,7 +119,7 @@ The DAG after adding the data visualization task :
 
 ## Step 4 : Data Pipeline Monitoring
 In this step we track and visualize metrics and indicators related to the performance of the data pipeline using the tools (StatsD, Prometheus and Grafana).
-The dashboard can be configured to be visualized in different period of times.
+The dashboard can be configured to be visualized in different periods of time.
 
 These indicators are used in the dashboard, they consist of 
 * **Scheduler heartbeat** will indicate the airflow scheduler is working.
