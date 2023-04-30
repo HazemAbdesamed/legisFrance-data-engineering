@@ -131,9 +131,9 @@ These indicators are used in the dashboard, they consist of
 ![image](https://user-images.githubusercontent.com/48518599/235331944-2952b611-23a3-44c4-a01b-b06d2f8a7bda.png "Dashboard")
 
 ## Requirements : 
-docker desktop v4.15.0
-docker v20.10.21
-docker-compose v2.13.0
+* docker desktop v4.15.0
+* docker v20.10.21
+* docker-compose v2.13.0
 
 ## Usage :
 * Download the folder of the project.
