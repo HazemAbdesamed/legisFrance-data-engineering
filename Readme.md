@@ -77,6 +77,7 @@ The code used to load data can be found in [load_to_db.py file](https://github.c
 ![alt text](https://user-images.githubusercontent.com/48518599/234669462-39da5e03-4da7-4052-b7f5-04b12dca3818.png "distinct nature values ")
 
 
+**We can remark that legal text of nature "Ordonnance" were not signed during this period**
 
 
 ### ETL Pipeline
@@ -117,9 +118,17 @@ The DAG after adding the data visualization task :
 
 
 ## Step 4 : Data Pipeline Monitoring
-In this step we track and visualize metrics related to the performance of the data pipeline using the tools (StatsD, Prometheus and Grafana).
+In this step we track and visualize metrics and indicators related to the performance of the data pipeline using the tools (StatsD, Prometheus and Grafana).
+The dashboard can be configured to be visualized in different period of times.
 
+These indicators are used in the dashboard, they consist of 
+* **Scheduler heartbeat** will indicate the airflow scheduler is working.
+* **Executor running tasks** will indicate the number of running tasks in this period.
+* **Total successful tasks** will indicate the number of successful tasks, it can help if the dag run sussfully in a given period of time.
+* **Success DAG run duration** will help us determine the time (can be configured to be average) taken to complete a successful DAG.
+* **DAG run dependency check time** is a metric used to be aware of the time taken to check for dependecies.
 
+![image](https://user-images.githubusercontent.com/48518599/235331944-2952b611-23a3-44c4-a01b-b06d2f8a7bda.png "Dashboard")
 
 ## Requirements : 
 docker desktop v4.15.0

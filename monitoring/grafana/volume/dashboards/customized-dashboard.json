@@ -247,88 +247,6 @@
         "type": "stat"
       },
       {
-        "datasource": null,
-        "description": "Seconds taken to scan and import all DAG files once",
-        "fieldConfig": {
-          "defaults": {
-            "custom": {},
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "s"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 4,
-          "w": 6,
-          "x": 12,
-          "y": 0
-        },
-        "id": 14,
-        "options": {
-          "colorMode": "value",
-          "fieldOptions": {
-            "calcs": [
-              "mean"
-            ],
-            "defaults": {
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 9
-                  }
-                ]
-              }
-            },
-            "overrides": [],
-            "values": false
-          },
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "mean"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "6.7.2",
-        "targets": [
-          {
-            "expr": "af_agg_dag_processing_total_parse_time{airflow_id=\"$airflow_id\"}",
-            "interval": "",
-            "legendFormat": "",
-            "refId": "A"
-          }
-        ],
-        "timeFrom": null,
-        "timeShift": null,
-        "title": "DAG processing total parse time",
-        "type": "stat"
-      },
-      {
         "alert": {
           "alertRuleTags": {},
           "conditions": [
@@ -374,7 +292,7 @@
         "gridPos": {
           "h": 4,
           "w": 6,
-          "x": 18,
+          "x": 13,
           "y": 0
         },
         "hiddenSeries": false,
@@ -500,7 +418,7 @@
             }
           ],
           "executionErrorState": "alerting",
-          "for": "5m",
+          "for": "1m",
           "frequency": "1m",
           "handler": 1,
           "name": "Success DAG run duration alert",
@@ -591,8 +509,7 @@
             "fill": true,
             "line": true,
             "op": "gt",
-            "value": 3600000,
-            "yaxis": "left"
+            "value": 3600000
           }
         ],
         "timeFrom": null,
@@ -817,5 +734,5 @@
     "variables": {
       "list": []
     },
-    "version": 9
+    "version": 10
   }
