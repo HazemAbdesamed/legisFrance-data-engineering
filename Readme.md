@@ -116,6 +116,10 @@ The DAG after adding the data visualization task :
 ![alt text](https://user-images.githubusercontent.com/48518599/234666740-4df39f95-50f7-43be-ab63-5be59f44f2ac.png "the dag with data visualization task")
 
 
+## Step 4 : Data Pipeline Monitoring
+In this step we track and visualize metrics related to the performance of the data pipeline using the tools (StatsD, Prometheus and Grafana).
+
+
 
 ## Requirements : 
 docker desktop v4.15.0

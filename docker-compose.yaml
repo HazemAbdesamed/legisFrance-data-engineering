@@ -1,18 +1,5 @@
 version: '3.7'
 services:
-    postgres:
-        image: postgres:9.6
-        environment:
-            - POSTGRES_USER=airflow
-            - POSTGRES_PASSWORD=airflow
-            - POSTGRES_DB=airflow
-        logging:
-            options:
-                max-size: 10m
-                max-file: "3"
-        networks :
-            - my-network
-
     mongodb:
       image: mongo:5.0.16-focal
       environment:
@@ -35,20 +22,17 @@ services:
             dockerfile: Dockerfile
         restart: always
         depends_on:
-            - postgres
             - mongodb
             - chrome
         environment:
             - INSTALL_MYSQL=y
             - LOAD_EX=n
-            - EXECUTOR=Local
-            - SELENIUM_HOST=chrome
-            - SELENIUM_PORT=4444
-        # logging:
-        #     options:
-        #         max-size: 10m
-        #         max-file: "3"
+            - AIRFLOW__SCHEDULER__STATSD_ON=True
+            - AIRFLOW__SCHEDULER__STATSD_HOST=statsd-exporter
+            - AIRFLOW__SCHEDULER__STATSD_PORT=9125
+            - AIRFLOW__SCHEDULER__STATSD_PREFIX=airflow
         volumes:
+            # - ./airflow/configs/airflow.cfg:/usr/local/airflow/airflow.cfg
             - ./airflow/requirements.txt:/requirements.txt
             - ./airflow/dags:/usr/local/airflow/dags
             - ./mongodb/db_data:/usr/local/airflow/db_data_airflow/
@@ -59,6 +43,52 @@ services:
         networks:
             - my-network
         command: webserver
+
+    statsd-exporter:
+        image: prom/statsd-exporter:v0.21.0
+        ports:
+            - 9102:9102
+            - 9125:9125
+            - 9125:9125/udp
+        hostname: statsd    
+        volumes:
+            - ./monitoring/statsd/statsd.yaml:/home/statsd-mapping-configs.yaml
+        entrypoint: ["/bin/sh", "-c", "--"]
+        command: ["statsd_exporter --log.level debug --statsd.mapping-config=/home/statsd-mapping-configs.yaml"]    
+        restart: always
+        networks:
+            - my-network   
+
+    prometheus:
+        image: prom/prometheus:v2.26.0
+        volumes:
+            - ./monitoring/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
+            - ./monitoring/prometheus/volume:/prometheus
+        command:
+            - '--config.file=/etc/prometheus/prometheus.yaml'
+            - '--storage.tsdb.path=/prometheus'
+            - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+            - '--web.console.templates=/usr/share/prometheus/consoles'  
+        ports:
+            - 9092:9090
+        restart: always
+        networks:
+            - my-network             
+
+    grafana:
+        image: grafana/grafana:6.7.2
+        container_name: grafana
+        volumes:
+            - ./monitoring/grafana/volume:/var/lib/grafana
+        environment:
+            - GF_SECURITY_ADMIN_USER=admin
+            - GF_SECURITY_ADMIN_PASSWORD=password
+            - GF_USERS_ALLOW_SIGN_UP=false
+        restart: always
+        ports:
+            - 3000:3000
+        networks:
+            - my-network    
 
     chrome:
         image: selenium/standalone-chrome:4.9.0

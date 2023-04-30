@@ -6,6 +6,9 @@ from pandas.plotting import register_matplotlib_converters
 register_matplotlib_converters()
 from wordcloud import WordCloud
 
+from airflow.configuration import conf
+
+
 client = MongoClient("mongodb://root:root@mongodb:27017/")
 db = client["legisFrance"]
 collection = db["legalText"]
@@ -83,10 +86,12 @@ def plot_avg_articles():
     # Calculate the average number of articles by nature
     avg_by_nature = df.groupby('nature')['articles'].apply(lambda x: sum(len(articles) for articles in x) / len(x)).reset_index(name='avg_num_articles')
 
+    print(df.groupby('nature')['articles'].head())
+
     
     # plot the average number of articles by nature using a bar chart
     sns.set_style('darkgrid')
-    sns.barplot(x=avg_by_nature['nature'], y=avg_by_nature['avg_num_articles'], marker=True)
+    sns.barplot(x=avg_by_nature['nature'], y=avg_by_nature['avg_num_articles'])
     plt.title('Average Number of Articles by Nature')
     plt.xlabel('Nature of Legal Text')
     plt.ylabel('Average Number of Articles')
@@ -95,7 +100,10 @@ def plot_avg_articles():
 
 
 def create_visualizations():
+    # metric_name= f'dag.{dag_id}.{task_id}.my_counter'
+    # client = StatsClient(host=STATSD_HOST, port=STATSD_PORT, prefix=STATSD_PREFIX)
     plot_nature_over_time()
     plot_wordcloud()  
     plot_avg_articles()
 
+# plot_avg_articles()
