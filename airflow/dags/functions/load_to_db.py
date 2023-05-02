@@ -1,4 +1,4 @@
-from pymongo import MongoClient, UpdateOne
+from pymongo import MongoClient, UpdateOne, errors
 import csv
 import pandas as pd
 
@@ -28,14 +28,31 @@ def convert_date(date_str):
     # Return the date in the desired format
     return f"{year}-{month_num}-{day}"
 
+def initiateDBConnection():
+    try:
+        dbConnection = MongoClient("mongodb://root:root@mongodb:27017/")
+        try:
+            dbConnection.server_info()
+            return dbConnection
+            
+        except errors.OperationFailure as err:
+            return err
+    except Exception as err:
+        print("Connection Failure")
 
 
 def load_data_to_db() :
 
-
-    client = MongoClient("mongodb://root:root@mongodb:27017/")
+    # client = MongoClient("mongodb://root:root@mongodb:27017/")
+    client = initiateDBConnection()
     db = client["legisFrance"]
     collection = db["legalText"]
+    
+    # try:
+    #     list(collection.find().limit(1))
+    # except errors.ConnectionFailure as msg:
+    #     print('Connection failed : ',str(msg))
+
 
 
     # limit the field size to 50MB
@@ -49,7 +66,7 @@ def load_data_to_db() :
     # insert data to a df
     df = pd.DataFrame(data, columns=header)
 
-
+    # Convert the date into desired format and type
     df['date'] = df['date'].apply(convert_date)
     df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d')
 
@@ -86,7 +103,7 @@ def load_data_to_db() :
                     "article_tables" : article['article_tables'],
                 }
             )
-        documents.append(document)    
+        documents.append(document)
 
 
     # create a list of update operations
@@ -100,8 +117,10 @@ def load_data_to_db() :
     ]
 
     # execute the update operations
-    collection.bulk_write(updates)
+    if updates :
+        collection.bulk_write(updates)
     
 
     # close MongoDB connection
     client.close()
+ 

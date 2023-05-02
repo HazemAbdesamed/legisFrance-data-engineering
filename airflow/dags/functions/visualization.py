@@ -100,8 +100,6 @@ def plot_avg_articles():
 
 
 def create_visualizations():
-    # metric_name= f'dag.{dag_id}.{task_id}.my_counter'
-    # client = StatsClient(host=STATSD_HOST, port=STATSD_PORT, prefix=STATSD_PREFIX)
     plot_nature_over_time()
     plot_wordcloud()  
     plot_avg_articles()

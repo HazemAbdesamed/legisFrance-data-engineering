@@ -32,7 +32,7 @@ services:
             - AIRFLOW__SCHEDULER__STATSD_PORT=9125
             - AIRFLOW__SCHEDULER__STATSD_PREFIX=airflow
         volumes:
-            # - ./airflow/configs/airflow.cfg:/usr/local/airflow/airflow.cfg
+            - ./airflow/config/airflow.cfg:/usr/local/airflow/airflow.cfg
             - ./airflow/requirements.txt:/requirements.txt
             - ./airflow/dags:/usr/local/airflow/dags
             - ./mongodb/db_data:/usr/local/airflow/db_data_airflow/
@@ -61,6 +61,7 @@ services:
 
     prometheus:
         image: prom/prometheus:v2.26.0
+        hostname: prometheus
         volumes:
             - ./monitoring/prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
             - ./monitoring/prometheus/volume:/prometheus
@@ -78,12 +79,14 @@ services:
     grafana:
         image: grafana/grafana:6.7.2
         container_name: grafana
+        hostname: grafana
         volumes:
+            - ./monitoring/grafana/config/grafana.ini:/etc/grafana/grafana.ini
             - ./monitoring/grafana/volume:/var/lib/grafana
         environment:
             - GF_SECURITY_ADMIN_USER=admin
             - GF_SECURITY_ADMIN_PASSWORD=password
-            - GF_USERS_ALLOW_SIGN_UP=false
+            - GF_USERS_ALLOW_SIGN_UP=true
         restart: always
         ports:
             - 3000:3000

@@ -212,6 +212,13 @@ mappings:
     name: "af_agg_smart_sensor_operator_infra_failures"
     labels:
       airflow_id: "$1"
+  - match: "*.dag.*.*.failed"
+    match_metric_type: gauge
+    name: "task_failed"
+    labels:
+      airflow_id: "$1"
+      dag_id: "$2"
+      task_id: "$3"   
 
   # === Timers ===
   - match: "*.dagrun.dependency-check.*"
@@ -259,6 +266,12 @@ mappings:
   - match: "*.dagrun.*.first_task_scheduling_delay"
     match_metric_type: observer
     name: "af_agg_dagrun_first_task_scheduling_delay"
+    labels:
+      airflow_id: "$1"
+      dag_id: "$2"
+  - match: "*.customdag.*.duration"
+    match_metric_type: observer
+    name: "dag_duration"
     labels:
       airflow_id: "$1"
       dag_id: "$2"

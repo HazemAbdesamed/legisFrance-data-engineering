@@ -9,8 +9,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-# from webdriver_manager.chrome import ChromeDriverManager
-# from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver import Remote
 
 import pandas as pd
@@ -27,7 +25,6 @@ def get_tables(element):
 
 def scrape():
     
-
     options = Options() 
 
     options.add_argument('--headless')
@@ -35,9 +32,10 @@ def scrape():
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-dev-shm-usage")
-    options.add_experimental_option('detach', True) 
-    options.add_experimental_option('useAutomationExtension', False) 
-
+    options.add_experimental_option('detach', True)
+    options.add_argument("--dns-prefetch-disable")
+    options.add_argument("enable-features=NetworkServiceInProcess")
+    # options.add_argument("disable-features=NetworkService") 
 
     driver = Remote(command_executor=f"http://chrome:4444/wd/hub", options=options)
     try:
@@ -70,7 +68,6 @@ def scrape():
                 wait.until(EC.presence_of_element_located((By.CLASS_NAME, "js-tabcontent")))
             except :
                 print("a connection problem has occured")
-
             # extract legal_texts
             whole_page= BeautifulSoup(driver.page_source, 'html.parser')
 
@@ -183,41 +180,42 @@ def scrape():
                 # append the object created i.e the legal text information
                 legal_texts.append(legal_text_obj)
              
-              
+        print("finished scraping")          
     except:
         print('an error has occured, closing the chrome driver...')
     finally:
         driver.quit()
 
     # make the result into a dataframe
+    try :
+        # create an empty DataFrame
+        df = pd.DataFrame(columns=["title", "nature", "date", "NOR", "ELI", "jorf", "jorf_link", "jorf_text_num", "preface", "article_title", "article_text", "article_link", "article_tables", "annexe", "annexe_tables", "annexe_summary", "jorf_pdf"])
 
-    # create an empty DataFrame
-    df = pd.DataFrame(columns=["title", "nature", "date", "NOR", "ELI", "jorf", "jorf_link", "jorf_text_num", "preface", "article_title", "article_text", "article_link", "article_tables", "annexe", "annexe_tables", "annexe_summary", "jorf_pdf"])
-
-    # add rows to the df
-    for legal_text in legal_texts:
-        for article in legal_text['articles']:
-            new_row = pd.DataFrame ( {
-                    "title": legal_text['title'],
-                    "nature": legal_text['nature'],
-                    "date": legal_text['date'],
-                    "NOR" : legal_text['NOR'],
-                    "ELI" : legal_text['ELI'],
-                    "jorf" : legal_text['jorf'],
-                    "jorf_link" : legal_text['jorf_link'],
-                    "jorf_text_num" : legal_text['jorf_text_num'],
-                    "preface" : legal_text['preface'],
-                    "article_title" : article['title'], 
-                    "article_text" : article['text'], 
-                    "article_link" : article['link'], 
-                    "article_tables" : article['tables'],
-                    "annexe" : legal_text['annexe'],
-                    "annexe_tables" : legal_text['annexe_tables'],
-                    "annexe_summary" : legal_text['annexe_summary'], 
-                    "jorf_pdf" : legal_text['jorf_pdf'], 
-                    
-                }, index=[0] )
-            df = pd.concat([df, new_row], ignore_index=True)
-    # create a csv file and put the content there
-    df.to_csv('/csv_files/legal_texts.csv', sep ='|', index=False)
-
+        # add rows to the df
+        for legal_text in legal_texts:
+            for article in legal_text['articles']:
+                new_row = pd.DataFrame ( {
+                        "title": legal_text['title'],
+                        "nature": legal_text['nature'],
+                        "date": legal_text['date'],
+                        "NOR" : legal_text['NOR'],
+                        "ELI" : legal_text['ELI'],
+                        "jorf" : legal_text['jorf'],
+                        "jorf_link" : legal_text['jorf_link'],
+                        "jorf_text_num" : legal_text['jorf_text_num'],
+                        "preface" : legal_text['preface'],
+                        "article_title" : article['title'], 
+                        "article_text" : article['text'], 
+                        "article_link" : article['link'], 
+                        "article_tables" : article['tables'],
+                        "annexe" : legal_text['annexe'],
+                        "annexe_tables" : legal_text['annexe_tables'],
+                        "annexe_summary" : legal_text['annexe_summary'], 
+                        "jorf_pdf" : legal_text['jorf_pdf'], 
+                        
+                    }, index=[0] )
+                df = pd.concat([df, new_row], ignore_index=True)
+        # create a csv file and put the content there
+        df.to_csv('/csv_files/legal_texts.csv', sep ='|', index=False)
+    except :
+        print("couldn't save to csv file, verify the values")

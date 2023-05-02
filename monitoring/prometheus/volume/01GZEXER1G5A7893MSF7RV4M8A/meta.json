@@ -1,0 +1,17 @@
+{
+	"ulid": "01GZEXER1G5A7893MSF7RV4M8A",
+	"minTime": 1683043242327,
+	"maxTime": 1683050400000,
+	"stats": {
+		"numSamples": 36049,
+		"numSeries": 251,
+		"numChunks": 251
+	},
+	"compaction": {
+		"level": 1,
+		"sources": [
+			"01GZEXER1G5A7893MSF7RV4M8A"
+		]
+	},
+	"version": 1
+}

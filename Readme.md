@@ -122,13 +122,22 @@ In this step we track and visualize metrics and indicators related to the perfor
 The dashboard can be configured to be visualized in different periods of time.
 
 These indicators are used in the dashboard, they consist of 
-* **Scheduler heartbeat** will indicate the airflow scheduler is working.
-* **Executor running tasks** will indicate the number of running tasks in this period.
-* **Total successful tasks** will indicate the number of successful tasks, it can help if the dag run sussfully in a given period of time.
-* **Success DAG run duration** will help us determine the time (can be configured to be average) taken to complete a successful DAG.
-* **DAG run dependency check time** is a metric used to be aware of the time taken to check for dependecies.
+* **Scheduler heartbeat** will indicate that the airflow scheduler is working.
+* **Number of Dag Runs** will indicate the number of dags runs.
+* **Tasks Average Durations** will indicate for each task, the time the duration for its completion.
+* **Tasks failure** will indicate that a task has failed, if so, an alert will be fired and the user will be notified by a mail .
+* **Dag Duration** is a metric that will indicate the durations for the dags over the time, the user will be alerted if the average surpasses a certain limit of time.
+* **DAG Run dependency Check Time** is a metric used to be aware of the time taken to check for dependecies.
 
-![image](https://user-images.githubusercontent.com/48518599/235331944-2952b611-23a3-44c4-a01b-b06d2f8a7bda.png "Dashboard")
+![image](https://user-images.githubusercontent.com/48518599/235801522-7d059be7-c379-4524-8e69-013a99170fc9.png "Dashboard")
+
+When an alert fires
+
+![image](https://user-images.githubusercontent.com/48518599/235802841-a0686db5-b5dd-48d1-9e7f-70bfef07ab08.png "task failed alert")
+
+An email is sent to the user
+
+![image](https://user-images.githubusercontent.com/48518599/235803250-95849982-dd71-4226-b32f-7f1bace2eec3.png "alert email")
 
 ## Requirements : 
 * docker desktop v4.15.0
@@ -139,7 +148,7 @@ These indicators are used in the dashboard, they consist of
 * Download the folder of the project.
 * Navigate to the folder on your marchine.
 * execute : <code> docker-compose up --build -d </code>, it will take some time for the first time as it will create the images and install all the dependecies.
-* The datapipeline is scheduled to be executed every week. However, to run the data pipeline manually, navigate to localhost:8080, turn on the DAG and trigger it.
+* The data pipeline is scheduled to be executed every week. However, to run the data pipeline manually, navigate to localhost:8080, turn on the DAG and trigger it.
 
 ![image](https://user-images.githubusercontent.com/48518599/234822563-e89e35c0-26e4-4438-b08b-dd0d69f65e41.png "running a data pipeline")
 
