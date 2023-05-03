@@ -16,6 +16,19 @@ services:
         - my-network
 
 
+    postgres:
+        image: postgres:9.6
+        environment:
+            - POSTGRES_USER=airflow
+            - POSTGRES_PASSWORD=airflow
+            - POSTGRES_DB=airflow
+        logging:
+            options:
+                max-size: 10m
+                max-file: "3"        
+        networks:
+            - my-network
+
     webserver:
         build:
             context: ./airflow/
@@ -24,8 +37,10 @@ services:
         depends_on:
             - mongodb
             - chrome
+            - postgres
         environment:
             - INSTALL_MYSQL=y
+            - EXECUTOR=Local
             - LOAD_EX=n
             - AIRFLOW__SCHEDULER__STATSD_ON=True
             - AIRFLOW__SCHEDULER__STATSD_HOST=statsd-exporter
