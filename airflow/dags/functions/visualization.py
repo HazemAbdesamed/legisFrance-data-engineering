@@ -159,9 +159,7 @@ def paragraph_word_char():
 
 
 def create_visualizations():
-    # plot_nature_over_time()
-    # plot_wordcloud()  
-    # plot_avg_articles()
+    plot_nature_over_time()
+    plot_avg_articles()
     paragraph_word_char()
-
-# plot_avg_articles()
+    plot_wordcloud()  
