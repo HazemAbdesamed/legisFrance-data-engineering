@@ -51,7 +51,7 @@ def scrape():
         j = results_per_page
         while j <= nb_results:
 
-            url = f"https://www.legifrance.gouv.fr/search/lois?tab_selection=lawlegal_textdecree&searchField=ALL&query=*&searchType=ALL&nature=ORDONNANCE&nature=DECRET&nature=ARRETE&typeRecherche=date&dateVersion=18%2F04%2F2023&typePagination=DEFAUT&sortValue=SIGNATURE_DATE_DESC&pageSize={results_per_page}&page={page_num}&tab_selection=lawlegal_textdecree#lois"
+            url = f"https://www.legifrance.gouv.fr/search/lois?tab_selection=lawarticledecree&searchField=ALL&query=*&searchType=ALL&nature=ORDONNANCE&nature=DECRET&nature=ARRETE&etatArticle=VIGUEUR&etatArticle=ABROGE_DIFF&etatTexte=VIGUEUR&etatTexte=ABROGE_DIFF&typeRecherche=date&typePagination=DEFAUT&sortValue=SIGNATURE_DATE_DESC&pageSize={results_per_page}&page={page_num}"
             
             # add results_per_page to j in order to check if we have reached the number of results needed
             j+=results_per_page

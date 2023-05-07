@@ -17,7 +17,7 @@ The code implemented to scrape data can be found in [scrape.py file](https://git
 ## Step 2 : Data Modelling and ETL Pipeline
 
 ### Data modeling
-The fields used retrieved are : 
+The fields retrieved are : 
 * **title** is the title of the legal text.
 * **nature** is the nature of the legal text.
 * **date** is the signature date of the legal text.
@@ -68,7 +68,7 @@ Assuming that the articles are generally queried with their respective legal tex
 
 Assuming that the fields that are used the most are **nature** and **date**, two indexes are created for these fields.
 
-Also, in this part we load the data into the mongodb db after performing some transformations to respect the structure of the mongodb collection.
+Also, in this part we load the data into the mongodb after performing some transformations in order to respect the structure of the mongodb collection.
 
 The code used to load data can be found in [load_to_db.py file](https://github.com/HazemAbdesamed/legisFrance-data-engineering/blob/main/airflow/dags/functions/load_to_db.py).
 ![alt text](https://user-images.githubusercontent.com/48518599/234460528-74538ff4-f103-4769-ac84-403afbfd5385.png "example")
@@ -137,7 +137,7 @@ These indicators are used in the dashboard, they consist of
 
 ![image](https://user-images.githubusercontent.com/48518599/235801522-7d059be7-c379-4524-8e69-013a99170fc9.png "Dashboard")
 
-When an alert fires
+When an alert is fired
 
 ![image](https://user-images.githubusercontent.com/48518599/235802841-a0686db5-b5dd-48d1-9e7f-70bfef07ab08.png "task failed alert")
 
