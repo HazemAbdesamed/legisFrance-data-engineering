@@ -19,6 +19,7 @@ def plot_nature_over_time():
     # Group data by 'nature' and 'date', and count the number of occurrences
     grouped_data = df.groupby(['nature', pd.Grouper(key='date', freq='D')])['NOR'].count().reset_index()
     grouped_data['cumulative_count'] = grouped_data.groupby('nature')['NOR'].cumsum()
+    plt.figure()
     sns.set_style('darkgrid')
 
     fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(16, 12))
@@ -62,7 +63,6 @@ def plot_wordcloud():
         for article in article_list :
             all_articles_texts += article['article_text'] + ' '
 
-
     # Create a figure with two subplots
     fig, axs = plt.subplots(nrows=1, ncols=2, figsize=(16, 8))
 
@@ -86,6 +86,7 @@ def plot_avg_articles():
     # Calculate the average number of articles by nature
     avg_by_nature = df.groupby('nature')['articles'].apply(lambda x: sum(len(articles) for articles in x) / len(x)).reset_index(name='avg_num_articles')
     
+    plt.figure()
     # plot the average number of articles by nature using a bar chart
     sns.set_style('darkgrid')
     sns.barplot(x=avg_by_nature['nature'], y=avg_by_nature['avg_num_articles'])
@@ -95,10 +96,10 @@ def plot_avg_articles():
     # Save the visualization
     plt.savefig('/usr/local/airflow/visualizations/avg_articles.png', bbox_inches='tight')
 
-def paragraph_word_char():
-    
 
-    # Aggregate the data
+def paragraph_word_char():  
+
+    # concatenate the preface and the aricles texts and perform a group by nature
     pipeline = [
     {"$addFields": {
         "concatenated_text": {"$concat": ["$preface", " ", {"$reduce": {
@@ -117,13 +118,10 @@ def paragraph_word_char():
     ]
     result = collection.aggregate(pipeline)
 
-    # Display the output
     
     # Convert the result to a Pandas dataframe for visualization
     df = pd.DataFrame(result).set_index('nature')
     
-    # print(df.head())
-
     # Create a figure with 3 subplots
     fig, axs = plt.subplots(1, 3, figsize=(10, 6))
 
