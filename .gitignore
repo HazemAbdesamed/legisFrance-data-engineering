@@ -1,2 +1,3 @@
 mongodb/db_data
 airflow/dags/__pycache__
+monitoring/grafana/config/grafana.ini
