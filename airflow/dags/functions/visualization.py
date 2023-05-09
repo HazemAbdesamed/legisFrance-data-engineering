@@ -19,7 +19,6 @@ def plot_nature_over_time():
     # Group data by 'nature' and 'date', and count the number of occurrences
     grouped_data = df.groupby(['nature', pd.Grouper(key='date', freq='D')])['NOR'].count().reset_index()
     grouped_data['cumulative_count'] = grouped_data.groupby('nature')['NOR'].cumsum()
-    plt.figure()
     sns.set_style('darkgrid')
 
     fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(16, 12))

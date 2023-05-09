@@ -74,10 +74,10 @@ The code used to load data can be found in [load_to_db.py file](https://github.c
 ![alt text](https://user-images.githubusercontent.com/48518599/234460528-74538ff4-f103-4769-ac84-403afbfd5385.png "example")
 ![image](https://user-images.githubusercontent.com/48518599/234460609-734ed455-4ca7-4c23-9738-2de69c978182.png "number of documents")
 ![alt text](https://user-images.githubusercontent.com/48518599/234668931-65d758e4-0588-4f01-b183-2dda23f3f0c6.png "NOR, title and nature fields")
-![alt text](https://user-images.githubusercontent.com/48518599/234669462-39da5e03-4da7-4052-b7f5-04b12dca3818.png "distinct nature values ")
+![image](https://user-images.githubusercontent.com/48518599/236968740-b92071b4-525e-4362-9164-ae6e624d08bc.png "distinct nature values ")
 
 
-**We can remark that legal text of nature "Ordonnance" were not signed during this period**
+**We can remark that legal text of nature "Ordonnance" is signed only once during this period**
 
 
 ### ETL Pipeline
@@ -95,23 +95,23 @@ In this step we create visualizations related to the legal text.
 The first two visualizations represent respectively the number of legal texts by nature by day and the cumulative count of legal texts by nature over time.
 
 
-![alt text](https://user-images.githubusercontent.com/48518599/234665158-156492de-a3f9-4063-8dca-48ef857e074b.png "counts by nature over time and cumulative counts by nature over time")
+![image](https://user-images.githubusercontent.com/48518599236969796-51a12410-3a74-444f-9096-73bab39aaa6a.png "counts by nature over time and cumulative counts by nature over time")
 
 
-Another visualization shows the average number of articles by the nature of the legal text.
+Another visualization shows the average number of articles by the nature of the legal text (here it shows the number of articles for the single legal text of nature "Ordonnance").
 
-![image](https://user-images.githubusercontent.com/48518599/234834929-b4e63337-fadc-4897-b662-82821f62d516.png "average number of articles by nature")
+![image](https://user-images.githubusercontent.com/48518599/236969584-4c45d9f2-9a62-4bcd-af10-bf6f1dca86d1.png "average number of articles by nature")
 
 
 This visualization show the average number of characters, words and paragraphs by the nature of the legal text.
 
-![image](https://user-images.githubusercontent.com/48518599/236078168-af661bd5-fdd2-42ae-a2d6-977f1a3fea64.png "average number of characters, words and paragraphs")
+![chars_words_paragraphs](https://user-images.githubusercontent.com/48518599/236970049-fdf3e84b-97ae-4ed2-a61c-dcd4d0244904.png "average number of characters, words and paragraphs")
 
 The other visualizations represent the wordcloud for content of the article texts and title texts.
 
 We have created a stopwords list that can be improved as needed for efficient words retrieving.
 
-![alt text](https://user-images.githubusercontent.com/48518599/234665698-627a2d46-fb1c-449c-a527-795083876045.png "wordcloud for titles and content of text ")
+![image](https://user-images.githubusercontent.com/48518599/236970135-897f0556-6597-4f44-b446-22351d6b7e46.png "wordcloud for titles and content of text ")
 
 
 The visualisations are stored in [this folder](https://github.com/HazemAbdesamed/legisFrance-data-engineering/tree/main/airflow/visualizations) along with the stopwords list. 
