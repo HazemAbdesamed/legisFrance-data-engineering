@@ -95,7 +95,7 @@ In this step we create visualizations related to the legal text.
 The first two visualizations represent respectively the number of legal texts by nature by day and the cumulative count of legal texts by nature over time.
 
 
-![image](https://user-images.githubusercontent.com/48518599236969796-51a12410-3a74-444f-9096-73bab39aaa6a.png "counts by nature over time and cumulative counts by nature over time")
+![legal_text_by_nature_over_time](https://user-images.githubusercontent.com/48518599/236970388-78313f0f-2c02-4c94-ab6e-7842a8d55f4e.png "counts by nature over time and cumulative counts by nature over time")
 
 
 Another visualization shows the average number of articles by the nature of the legal text (here it shows the number of articles for the single legal text of nature "Ordonnance").
